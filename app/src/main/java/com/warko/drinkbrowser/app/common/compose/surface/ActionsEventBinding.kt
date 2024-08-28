@@ -3,6 +3,7 @@ package com.warko.drinkbrowser.app.common.compose.surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.lifecycle.Lifecycle
@@ -20,10 +21,10 @@ fun ActionsEventBinding(
 
     val actions = Actions()
     actionBlock(actions)
-    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+    val lifecycleOwner by rememberUpdatedState(LocalLifecycleOwner.current)
 
-    DisposableEffect(lifecycleOwner.value) {
-        val lifecycle = lifecycleOwner.value.lifecycle
+    DisposableEffect(lifecycleOwner) {
+        val lifecycle = lifecycleOwner.lifecycle
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> actions.performOnCreate()

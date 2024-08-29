@@ -13,5 +13,7 @@ object Palette {
     val Background = Color(0xFFF9F9F9)
     val White = Color(0xFFFFFFFF)
     val SurfaceVariant = Color(0xFF1E1E1E)
+    val Grey = Color(0xFF8F9199)
+    val GreyDisabled = Color(0x80232529)
 
 }

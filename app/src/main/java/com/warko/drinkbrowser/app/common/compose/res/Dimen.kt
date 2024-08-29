@@ -75,6 +75,8 @@ object Dimen {
     val StrokeWidth3 = 3.dp
     val StrokeWidth6 = 6.dp
 
+
+    val Elevation0 = 0.dp
     val Elevation1 = 1.dp
     val Elevation2 = 2.dp
     val Elevation4 = 4.dp
@@ -84,5 +86,6 @@ object Dimen {
 // ======================== DRINK BROWSER SIZES =========================
 
 object Size {
-
+    val ButtonHeight = 48.dp
+    val MainCardSize = 150.dp
 }

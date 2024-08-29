@@ -25,42 +25,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.warko.drinkbrowser.app.common.compose.res.Dimen
 import com.warko.drinkbrowser.app.common.compose.res.DrinkBrowserTheme
 import com.warko.drinkbrowser.app.common.compose.res.Size
 import com.warko.drinkbrowser.app.common.compose.sideeffect.ObserveEventsEffect
 import com.warko.drinkbrowser.app.common.compose.surface.PrimarySurface
 import com.warko.drinkbrowser.app.navigation.AppDestination
-import com.warko.drinkbrowser.app.navigation.RootDestination
 
 @Composable
-fun AppRoot() {
-    val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = RootDestination.Main,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        composable<RootDestination.Main> {
-            MainScreen(
-                navigate = { destination -> navController.navigate(destination) }
-            )
-        }
-
-        composable<RootDestination.Search> {  }
-
-        composable<RootDestination.Categories> {  }
-
-        composable<RootDestination.RandomCocktail> {  }
-    }
-}
-
-@Composable
-private fun MainScreen(
+fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     navigate: (AppDestination) -> Unit = { }
 ) {

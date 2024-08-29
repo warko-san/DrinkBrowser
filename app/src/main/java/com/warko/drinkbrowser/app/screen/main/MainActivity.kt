@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import com.warko.drinkbrowser.app.common.compose.LocalActivity
 import com.warko.drinkbrowser.app.common.compose.res.DrinkBrowserTheme
+import com.warko.drinkbrowser.app.screen.AppRoot
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -21,4 +21,5 @@ class MainViewModel @Inject constructor(
     fun onCardClick(cardType: MainCardType) {
         viewModelScope.launch { interactor.handle(MainInteractor.Interaction.CardClick(cardType)) }
     }
+    
 }

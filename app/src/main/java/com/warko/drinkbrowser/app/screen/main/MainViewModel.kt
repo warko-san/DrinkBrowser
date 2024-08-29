@@ -12,6 +12,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     val state get() = interactor.state
+    val event get() = interactor.event
 
     fun init() {
         viewModelScope.launch { interactor.handle(MainInteractor.Interaction.Init) }

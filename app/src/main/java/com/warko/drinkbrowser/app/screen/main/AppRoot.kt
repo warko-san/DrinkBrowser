@@ -31,7 +31,9 @@ import androidx.navigation.compose.rememberNavController
 import com.warko.drinkbrowser.app.common.compose.res.Dimen
 import com.warko.drinkbrowser.app.common.compose.res.DrinkBrowserTheme
 import com.warko.drinkbrowser.app.common.compose.res.Size
+import com.warko.drinkbrowser.app.common.compose.sideeffect.ObserveEventsEffect
 import com.warko.drinkbrowser.app.common.compose.surface.PrimarySurface
+import com.warko.drinkbrowser.app.navigation.AppDestination
 import com.warko.drinkbrowser.app.navigation.RootDestination
 
 @Composable
@@ -44,14 +46,23 @@ fun AppRoot() {
         modifier = Modifier.fillMaxSize()
     ) {
         composable<RootDestination.Main> {
-            MainScreen()
+            MainScreen(
+                navigate = { destination -> navController.navigate(destination) }
+            )
         }
+
+        composable<RootDestination.Search> {  }
+
+        composable<RootDestination.Categories> {  }
+
+        composable<RootDestination.RandomCocktail> {  }
     }
 }
 
 @Composable
 private fun MainScreen(
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    navigate: (AppDestination) -> Unit = { }
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val composableState = rememberMainContentState(
@@ -75,6 +86,11 @@ private fun MainScreen(
     )
     val onCardClick: (MainCardType) -> Unit = remember { { viewModel.onCardClick(it) } }
 
+    ObserveEventsEffect(flow = viewModel.event) {
+        when (it) {
+            is MainInteractor.Effect.Navigate -> navigate(it.destination)
+        }
+    }
     PrimarySurface(
         initialiseBlock = { viewModel.init() }
     ) {

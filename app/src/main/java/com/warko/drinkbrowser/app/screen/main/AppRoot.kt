@@ -17,16 +17,21 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.warko.drinkbrowser.app.common.compose.res.Dimen
 import com.warko.drinkbrowser.app.common.compose.res.DrinkBrowserTheme
 import com.warko.drinkbrowser.app.common.compose.res.Size
+import com.warko.drinkbrowser.app.common.compose.surface.PrimarySurface
 import com.warko.drinkbrowser.app.navigation.RootDestination
 
 @Composable
@@ -45,8 +50,36 @@ fun AppRoot() {
 }
 
 @Composable
-private fun MainScreen() {
+private fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel()
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val composableState = rememberMainContentState(
+        title = state.title,
+        searchByNameState = rememberMainCardState(
+            title = state.searchByName,
+            type = MainCardType.SEARCH_BY_NAME
+        ),
+        searchByIngredientState = rememberMainCardState(
+            title = state.searchByIngredient,
+            type = MainCardType.SEARCH_BY_INGREDIENT
+        ),
+        categoriesState = rememberMainCardState(
+            title = state.categories,
+            type = MainCardType.CATEGORIES
+        ),
+        pickRandomState = rememberMainCardState(
+            title = state.pickRandom,
+            type = MainCardType.PICK_RANDOM
+        )
+    )
+    val onCardClick: (MainCardType) -> Unit = remember { { viewModel.onCardClick(it) } }
 
+    PrimarySurface(
+        initialiseBlock = { viewModel.init() }
+    ) {
+        MainContent(state = composableState, onCardClick = onCardClick)
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -134,6 +167,34 @@ private fun DoubleCardRow(
             }
         }
     }
+}
+
+@Composable
+private fun rememberMainContentState(
+    title: String,
+    searchByNameState: MainCardState,
+    searchByIngredientState: MainCardState,
+    categoriesState: MainCardState,
+    pickRandomState: MainCardState
+): MainContentState = remember {
+    MainContentState(
+        title = title,
+        searchByNameState = searchByNameState,
+        searchByIngredientState = searchByIngredientState,
+        categoriesState = categoriesState,
+        pickRandomState = pickRandomState
+    )
+}
+
+@Composable
+private fun rememberMainCardState(
+    title: String,
+    type: MainCardType
+): MainCardState = remember {
+    MainCardState(
+        title = title,
+        type = type
+    )
 }
 
 @Preview

@@ -14,13 +14,13 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun ActionsEventBinding(
-    actionBlock: Actions.() -> Unit = {},
+    lifecycleActions: Actions.() -> Unit = {},
     initialiseBlock: suspend CoroutineScope.() -> Unit = {},
 ) {
     if (LocalInspectionMode.current) return
 
     val actions = Actions()
-    actionBlock(actions)
+    lifecycleActions(actions)
     val lifecycleOwner by rememberUpdatedState(LocalLifecycleOwner.current)
 
     DisposableEffect(lifecycleOwner) {

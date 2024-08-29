@@ -27,7 +27,7 @@ fun PrimarySurface(
     DrinkBrowserTheme {
         content()
         ActionsEventBinding(
-            actionBlock = state.processEventActionBlock,
+            lifecycleActions = state.processEventActionBlock,
             initialiseBlock = state.initialiseBlock
         )
     }

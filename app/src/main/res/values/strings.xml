@@ -5,4 +5,5 @@
     <string name="title_search_by_ingredient">Search cocktail by ingredient</string>
     <string name="title_categories">List cocktail categories</string>
     <string name="title_pick_random">Pick a random cocktail</string>
+    <string name="search">Search</string>
 </resources>

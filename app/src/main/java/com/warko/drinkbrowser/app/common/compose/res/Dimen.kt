@@ -1,6 +1,7 @@
 package com.warko.drinkbrowser.app.common.compose.res
 
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 object Dimen {
 
@@ -81,6 +82,8 @@ object Dimen {
     val Elevation2 = 2.dp
     val Elevation4 = 4.dp
     val Elevation6 = 6.dp
+
+    val TextSize16 = 16.sp
 }
 
 // ======================== DRINK BROWSER SIZES =========================
@@ -89,4 +92,6 @@ object Size {
     val ButtonHeight = 48.dp
     val MainCardSize = 150.dp
     val ImagePreview = 100.dp
+    val SearchFieldHeight = 56.dp
+    val SearchIconSize = 40.dp
 }

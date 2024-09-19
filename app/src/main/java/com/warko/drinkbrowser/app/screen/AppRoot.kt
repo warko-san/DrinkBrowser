@@ -6,8 +6,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.warko.drinkbrowser.app.navigation.RootDestination
 import com.warko.drinkbrowser.app.screen.main.MainScreen
+import com.warko.drinkbrowser.app.screen.search.SearchScreen
 
 @Composable
 fun AppRoot() {
@@ -24,7 +26,11 @@ fun AppRoot() {
             )
         }
 
-        composable<RootDestination.Search> { }
+        composable<RootDestination.Search> {
+            SearchScreen(
+                type = it.toRoute<RootDestination.Search>().type,
+                navigate = { destination -> navController.navigate(destination) })
+        }
 
         composable<RootDestination.Categories> { }
 

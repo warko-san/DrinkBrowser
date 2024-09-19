@@ -77,6 +77,8 @@ dependencies {
 
     // Network
     implementation(libs.retrofit)
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
 
     // Testing
     testImplementation(libs.junit)

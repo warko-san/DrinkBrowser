@@ -88,4 +88,5 @@ object Dimen {
 object Size {
     val ButtonHeight = 48.dp
     val MainCardSize = 150.dp
+    val ImagePreview = 100.dp
 }

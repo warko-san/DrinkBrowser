@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 class MainInteractor @Inject constructor(
-    private val reducer: MainReducer
+    private val stateHandler: MainStateHandler
 ) {
 
     private val _event = eventFlow<Effect>()
     val event get() = _event.asSharedFlow()
-    val state get() = reducer.state
+    val state get() = stateHandler.state
 
     suspend fun handle(interaction: Interaction) {
         when (interaction) {
@@ -23,7 +23,7 @@ class MainInteractor @Inject constructor(
     }
 
     private suspend fun init() {
-        reducer.reduce(MainReducer.Event.Init)
+
     }
 
     private suspend fun onCardClick(cardType: MainCardType) {

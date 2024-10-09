@@ -33,7 +33,7 @@ object NetworkModuleProvider {
     fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
-        .baseUrl("www.thecocktaildb.com/api/json/v1/1/")
+        .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/")
         .build()
 
 }

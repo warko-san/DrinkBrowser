@@ -27,12 +27,11 @@ class ServiceInvoker @Inject constructor(
             val result = block(actions)
             return mapper.map(result)
         } catch (e: CancellationException) {
-            if (e.cause is UnknownHostException) {
-                logd { "Caught cancellation exception caused by UnknownHostException. Throwing StresslessException(NoConnection)" }
-                throw AppException(AppException.Type.NoConnection)
-            }
             logd { "Caught cancellation exception" }
             throw e
+        } catch (e: UnknownHostException) {
+            logd { "Caught UnknownHostException. Throwing AppException(NoConnection)" }
+            throw AppException(AppException.Type.NoConnection)
         } catch (e: AppException) {
             logd { "Caught and propagated ${e::class.simpleName}, type ${e::class.simpleName}" }
             throw e

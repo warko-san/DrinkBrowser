@@ -19,6 +19,9 @@ sealed interface RootDestination : AppDestination {
     @Serializable
     data object RandomCocktail : RootDestination
 
+    @Serializable
+    data class DrinkDetails(val id: String) : RootDestination
+
 }
 
 enum class SearchType {

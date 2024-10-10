@@ -77,6 +77,13 @@ dependencies {
 
     // Network
     implementation(libs.retrofit)
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+    implementation(libs.gson)
+    implementation(libs.gson.converter)
 
     // Testing
     testImplementation(libs.junit)

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-class MainReducer @Inject constructor(
+class MainStateHandler @Inject constructor(
     localisation: MainLocalisation
 ) {
 
@@ -18,16 +18,6 @@ class MainReducer @Inject constructor(
     private val _state = MutableStateFlow(emptyState)
     val state get() = _state.asStateFlow()
 
-    suspend fun reduce(event: Event) {
-        when (event) {
-            is Event.Init -> init()
-        }
-    }
-
-    private suspend fun init() {
-
-    }
-
     data class State(
         val title: String = "",
         val searchByName: String = "",
@@ -36,7 +26,4 @@ class MainReducer @Inject constructor(
         val pickRandom: String = ""
     )
 
-    sealed interface Event {
-        data object Init : Event
-    }
 }

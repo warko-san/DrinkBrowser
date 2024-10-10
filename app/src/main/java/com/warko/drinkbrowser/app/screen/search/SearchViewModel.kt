@@ -13,12 +13,8 @@ class SearchViewModel @Inject constructor(
 
     val state get() = interactor.state
 
-    fun init(type: SearchType) {
-        launch { interactor.handle(SearchInteractor.Interaction.Init(type)) }
-    }
-
-    fun onInput(input: String) {
-        launch { interactor.handle(SearchInteractor.Interaction.OnInput(input)) }
+    fun onInput(type: SearchType, input: String) {
+        launch { interactor.handle(SearchInteractor.Interaction.OnInput(type, input)) }
     }
 
 }

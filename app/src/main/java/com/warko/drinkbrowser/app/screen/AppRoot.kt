@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.warko.drinkbrowser.app.navigation.RootDestination
+import com.warko.drinkbrowser.app.screen.details.DrinkDetailsScreen
 import com.warko.drinkbrowser.app.screen.main.MainScreen
 import com.warko.drinkbrowser.app.screen.search.SearchScreen
 
@@ -35,5 +36,12 @@ fun AppRoot() {
         composable<RootDestination.Categories> { }
 
         composable<RootDestination.RandomCocktail> { }
+
+        composable<RootDestination.DrinkDetails> {
+            DrinkDetailsScreen(
+                id = it.toRoute<RootDestination.DrinkDetails>().id,
+                navigate = { route -> navController.navigate(route) }
+            )
+        }
     }
 }

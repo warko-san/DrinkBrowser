@@ -7,6 +7,11 @@ class DrinkResponse(
     val drinks: List<RemoteDrink>
 )
 
+class DrinkShortResponse(
+    @SerializedName("drinks")
+    val drinks: List<RemoteDrinkShort>
+)
+
 class RemoteDrink(
     @SerializedName("idDrink")
     val id: String,
@@ -60,4 +65,13 @@ class RemoteDrink(
     val measure9: String?,
     @SerializedName("strMeasure10")
     val measure10: String?
+)
+
+class RemoteDrinkShort(
+    @SerializedName("idDrink")
+    val id: String,
+    @SerializedName("strDrink")
+    val name: String,
+    @SerializedName("strDrinkThumb")
+    val imageUrl: String,
 )

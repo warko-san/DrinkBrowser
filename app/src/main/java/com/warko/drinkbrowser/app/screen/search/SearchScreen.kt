@@ -1,6 +1,6 @@
 package com.warko.drinkbrowser.app.screen.search
 
-import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -64,14 +64,13 @@ fun SearchScreen(
             )
         }
     )
-    val onQueryChange: (String) -> Unit = remember { { viewModel.onInput(it) } }
+    val onQueryChange: (String) -> Unit = remember { { viewModel.onInput(type, it) } }
 
-    PrimarySurface(
-        initialiseBlock = { viewModel.init(type) }
-    ) {
+    PrimarySurface {
         SearchContent(
             state = composableState,
-            onQueryChange = onQueryChange
+            onQueryChange = onQueryChange,
+            onItemClick = { navigate(RootDestination.DrinkDetails(it)) }
         )
     }
 }
@@ -79,7 +78,8 @@ fun SearchScreen(
 @Composable
 private fun SearchContent(
     state: SearchContentState,
-    onQueryChange: (String) -> Unit,
+    onQueryChange: (String) -> Unit = {},
+    onItemClick: (String) -> Unit = {}
 ) {
     val listState = rememberLazyListState()
     val kbHeight = WindowInsets.ime.getBottom(LocalDensity.current)
@@ -109,7 +109,6 @@ private fun SearchContent(
         ) {
             LazyColumn(
                 state = listState,
-                modifier = Modifier.animateContentSize(),
                 verticalArrangement = Arrangement.spacedBy(Dimen.Spacing16),
                 contentPadding = PaddingValues(vertical = Dimen.Spacing16)
             ) {
@@ -119,6 +118,7 @@ private fun SearchContent(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = Dimen.Spacing16)
+                            .clickable(onClick = { onItemClick(item.id) })
                     )
                 }
             }

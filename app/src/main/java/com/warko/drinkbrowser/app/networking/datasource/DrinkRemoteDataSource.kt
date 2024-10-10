@@ -1,5 +1,6 @@
 package com.warko.drinkbrowser.app.networking.datasource
 
+import com.warko.drinkbrowser.app.drink.Drink
 import com.warko.drinkbrowser.app.drink.DrinkCategory
 import com.warko.drinkbrowser.app.drink.DrinkMapper
 import com.warko.drinkbrowser.app.networking.ServiceInvoker
@@ -19,7 +20,19 @@ class DrinkRemoteDataSource @Inject constructor(
 
     suspend fun searchByIngredient(ingredient: String) = invoker.invokeService(
         block = { drinkService.searchByIngredient(ingredient).drinks },
-        mapper = mapper
+        mapper = { drinks ->
+            drinks.map {
+                Drink(
+                    id = it.id,
+                    name = it.name,
+                    imageUrl = it.imageUrl,
+                    category = "",
+                    glass = "",
+                    instructions = "",
+                    ingredients = listOf()
+                )
+            }
+        }
     )
 
     suspend fun listCategories() = invoker.invokeService(
@@ -34,6 +47,11 @@ class DrinkRemoteDataSource @Inject constructor(
 
     suspend fun showRandom() = invoker.invokeService(
         block = { drinkService.showRandom().drinks },
+        mapper = mapper
+    )
+
+    suspend fun getDrinkById(id: String) = invoker.invokeService(
+        block = { drinkService.getDrinkById(id).drinks },
         mapper = mapper
     )
 
